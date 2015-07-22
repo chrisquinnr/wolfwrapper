@@ -15,8 +15,13 @@
     <p class="success">
         {{#if getWolframOutput}}
             {{#each getWolframOutput}}
-                {{this.content}}
-            {{/each}}
+                Query id:{{this._id}}<br>
+                Timing: {{this.timing}}<br>
+                Pods:
+                  {{#each pods}}
+                    {{this}}<br>
+                  {{/each}}<br>
+            {{/each}}<br>
         {{else}}
             No response yet
         {{/if}}

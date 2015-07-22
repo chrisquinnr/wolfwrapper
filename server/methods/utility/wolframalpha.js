@@ -10,7 +10,21 @@ Meteor.methods({
                 if(resp){
                     console.log('......complete (1)');
                     var result = Meteor.call('parseResponse', resp);
-                    return Queries.insert({content: result});
+                    var meta = result.queryresult.$;
+                    var pods = result.queryresult.pod;
+                    console.log(pods[0].subpod.plaintext);
+                    console.log(pods[0].subpod.img);
+                    console.log(pods[1].subpod.plaintext);
+                    //console.log(pods[2]);
+                    //console.log(pods[3]);
+                    //console.log(pods[4]);
+                    //console.log(pods[5]);
+                    //console.log(pods[6]);
+                    //console.log(pods[7]);
+                    //console.log(pods[8]);
+                    //console.log(pods[9]);
+                    return;
+                    return Queries.insert({related: meta.related, timing: meta.timing, pods: pods});
                 }
             }
         });
