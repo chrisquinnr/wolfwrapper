@@ -6,7 +6,8 @@ Template.wolfram.events({
             } else {
                 if (resp) {
                     //console.log(resp);
-                    Bert.alert('success', 'Wolfram API success', 'growl-top-right');
+                    var message = 'Wolfram API success, import ' + resp + ' complete';
+                    Bert.alert('success', message, 'growl-top-right');
                 }
             }
         });
