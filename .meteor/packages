@@ -8,8 +8,6 @@ underscore
 accounts-password
 accounts-base
 jquery
-check
-audit-argument-checks
 iron:router
 themeteorchef:jquery-validation
 twbs:bootstrap

@@ -7,10 +7,10 @@
 <template name="wolfram">
     <pre>
         Wolfram Alpha API
-        http://api.wolframalpha.com/v2/query?input=pi&appid=6TKGHR-L4T3W4R5RY
     </pre>
 
-    <button id="apitest" class="btn btn-success">Test Wolfram API</button>
+    <input type="text" name="input" class="inputtext">
+    <button class="apitest btn btn-success">Test Wolfram API</button>
 
     <p class="success">
         {{#if getWolframOutput}}

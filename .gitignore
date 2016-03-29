@@ -1,6 +1,6 @@
 # Operating System
 .DS_Store
-.idea/
+.idea/*x
 # Configuration
 settings-production.json
 npm-debug.log
