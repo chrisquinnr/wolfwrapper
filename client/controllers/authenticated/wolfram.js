@@ -9,24 +9,16 @@ Template.wolfram.events({
       console.log(input);
     }
 
-    Meteor.call('callWolframAPI', input, function ( err, resp ) {
-      if (err) {
-        console.log(err);
-      } else {
-        if (resp) {
-          //console.log(resp);
-          var message = 'Wolfram API success, import ' + resp + ' complete';
-          Bert.alert('success', message, 'growl-top-right');
-        }
-      }
-    });
+    Meteor.call('callWolframAPI', input);
   }
-})
+});
 
 Template.wolfram.helpers({
   getWolframOutput: function () {
     //console.log('getting saved response');
-    var data = Queries.find({});
-    return data;
+    var result = Queries.findOne({});
+    if(result){
+      return result.result;
+    }
   }
-})
+});

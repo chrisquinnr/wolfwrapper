@@ -5,13 +5,11 @@ Meteor.methods({
     console.log('We made it onto the server, with input: ' + input);
     if(!input) return false;
     input = input.toLowerCase();
-    console.log('invoking wrapper... (1)');
     Meteor.call('wolframAPIWrapper', input, function ( err, resp ) {
       if (err) {
         console.log('Error in Wolfram API processing, response not captured');
       } else {
         if (resp) {
-          console.log('......complete (1)');
           var result = Meteor.call('parseResponse', resp);
 
           // check meta
@@ -23,23 +21,32 @@ Meteor.methods({
             console.log('meta says this is good')
           }
 
+          var wolfResult = false;
+
           //loop pods
           var pods = result.queryresult.pod;
           console.log(pods);
           _.each(pods, function(elem){
             var podelem = _.first(_.values(_.pick(elem, '$')));
-            if(podelem.title === 'Organism weight'){
+            if(podelem.primary === 'true'){
               var subpod = _.pick(elem, 'subpod');
-              console.log(_.pick(subpod.subpod[0], '$'));
-              console.log(_.pick(subpod.subpod[0], 'img'));
-              console.log(_.pick(subpod.subpod[0], 'plaintext'));
-              var state = _.pick(elem, 'states');
-              console.log(state);
+              console.log(subpod);
+              wolfResult = _.pick(subpod.subpod[0],'plaintext');
+              console.log(wolfResult)
+              //_.each(subpod, function(subelem){
+              //  console.log(subelem);
+              //  console.log(_.first(_.values(_.pick(subelem, '$'))));
+              //});
+              //console.log(_.pick(subpod.subpod[0], '$'));
+              //console.log(_.pick(subpod.subpod[0], 'img'));
+              //console.log(_.pick(subpod.subpod[0], 'plaintext'));
+              //var state = _.pick(elem, 'states');
+              //console.log(state);
             }
-          });
 
-          return true;
-          //Queries.insert({related: meta.related, timing: meta.timing, pods: pods});
+          });
+          Queries.remove({});
+          Queries.insert({result:wolfResult.plaintext[0]});
         }
       }
     });
